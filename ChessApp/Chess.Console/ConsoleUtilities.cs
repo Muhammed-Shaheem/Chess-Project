@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessLibrary;
+using System;
 
 namespace Chess.ConsoleUI;
 
@@ -28,46 +29,49 @@ public static class ConsoleUtilities
         }
     }
 
-    public static (int, int, int, int,char) UserInputValidation(string[,] board, char turn)
+    public static (int, int, int, int, char) UserInputValidation(string[,] board, char turn)
     {
-
-
     FromRow:
         Console.WriteLine();
-        Console.Write("Enter from row: ");
-        if ((int.TryParse(Console.ReadLine(), out int fromRow) && (fromRow > 0 && fromRow < 9)) == false)
+        Console.Write("Enter 'from row': ");
+        if ((int.TryParse(Console.ReadLine(), out int fromRow) && Utilities.IsInsideBoard(fromRow)) == false)
         {
             Console.WriteLine("Invalid Input");
             goto FromRow;
         }
 
     FromCol:
-        Console.Write("Enter from column: ");
-        if ((int.TryParse(Console.ReadLine(), out int fromCol) && (fromCol > 0 && fromCol < 9)) == false)
+        Console.Write("Enter 'from column': ");
+        if ((int.TryParse(Console.ReadLine(), out int fromCol) && Utilities.IsInsideBoard(fromCol)) == false)
         {
             Console.WriteLine("Invalid Input");
             goto FromCol;
         }
 
-        char? wOrB = board[fromRow - 1, fromCol - 1]?[0];
-        if (wOrB == null || wOrB != turn)
+        if (HasPieceAt(board, fromRow, fromCol)) // the (-1) is for indexing because the parameter passed is not 0 based indexing
+        {
+            Console.WriteLine("Invalid Input");
+            goto FromRow;
+        }
+
+        char wOrB = board[fromRow - 1, fromCol - 1][0];
+        if (wOrB != turn)
         {
             if (turn == 'W')
             {
-                Console.WriteLine($"Its white turn.");
+                Console.WriteLine($"Cannot move black piece.Its white's turn.");
                 goto FromRow;
             }
             else
             {
-                Console.WriteLine($"Its black turn.");
+                Console.WriteLine($"Cannot move white piece.Its black's turn.");
                 goto FromRow;
             }
         }
-      
 
     ToRow:
         Console.Write("Enter to row: ");
-        if ((int.TryParse(Console.ReadLine(), out int toRow) && (toRow > 0 && toRow < 9)) == false)
+        if ((int.TryParse(Console.ReadLine(), out int toRow) && Utilities.IsInsideBoard(toRow)) == false)
         {
             Console.WriteLine("Invalid Input");
             goto ToRow;
@@ -76,7 +80,7 @@ public static class ConsoleUtilities
 
     ToColumn:
         Console.Write("Enter to column: ");
-        if ((int.TryParse(Console.ReadLine(), out int toCol) && (toCol > 0 && toCol < 9)) == false)
+        if ((int.TryParse(Console.ReadLine(), out int toCol) && Utilities.IsInsideBoard(toCol)) == false)
         {
             Console.WriteLine("Invalid Input");
             goto ToColumn;
@@ -84,7 +88,35 @@ public static class ConsoleUtilities
         }
 
         char piece = board[fromRow - 1, fromCol - 1][1];
-        return (fromRow - 1, fromCol - 1, toRow - 1, toCol - 1,piece);
+        return (fromRow - 1, fromCol - 1, toRow - 1, toCol - 1, piece);
+    }
+
+    private static bool HasPieceAt(string[,] board, int fromRow, int fromCol)
+    {
+        return board[fromRow - 1, fromCol - 1] == null;
+    }
+
+    public static void PlayGame(string[,] board)
+    {
+        char turn = 'W';
+        bool isWinOrTie = false;
+
+        while (isWinOrTie == false)
+        {
+        label:
+            (int fromRow, int fromCol, int toRow, int toCol, char pieceMoved) = ConsoleUtilities.UserInputValidation(board, turn);
+            bool isValidMove = Utilities.IsValidMove(board, fromRow, fromCol, toRow, toCol, pieceMoved);
+            if (isValidMove == false)
+            {
+                Console.WriteLine("Invalid Move.");
+                goto label;
+            }
+
+            turn = turn == 'B' ? 'W' : 'B';
+
+            Console.WriteLine();
+            ConsoleUtilities.PrintChessBoard(board);
+        }
     }
 
 }

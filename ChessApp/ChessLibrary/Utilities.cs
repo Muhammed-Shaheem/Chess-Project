@@ -1,4 +1,6 @@
-﻿namespace ChessLibrary;
+﻿using ChessLibrary.ChessPieces;
+
+namespace ChessLibrary;
 
 public static class Utilities
 {
@@ -33,5 +35,36 @@ public static class Utilities
             board[1, i] = "BP";
             board[6, i] = "WP";
         }
+    }
+
+    public static bool IsValidMove(string[,] board, int fromRow, int fromCol, int toRow, int toCol, char pieceMoved)
+    {
+        bool isValidMove = false;
+        switch (pieceMoved)
+        {
+            case 'P':
+                isValidMove = Pawn.Move(board, fromRow, fromCol, toRow, toCol);
+                break;
+            case 'R':
+                isValidMove = Rook.Move(board, fromRow, fromCol, toRow, toCol);
+                break;
+            case 'N':
+                isValidMove = Knight.Move(board, fromRow, fromCol, toRow, toCol);
+                break;
+            case 'B':
+                isValidMove = Bishop.Move(board, fromRow, fromCol, toRow, toCol);
+                break;
+            case 'Q':
+                isValidMove = Queen.Move(board, fromRow, fromCol, toRow, toCol);
+                break;
+            case 'K':
+                isValidMove = King.Move(board, fromRow, fromCol, toRow, toCol);
+                break;
+
+            default:
+                break;
+        }
+
+        return isValidMove;
     }
 }
