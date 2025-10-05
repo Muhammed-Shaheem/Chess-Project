@@ -1,4 +1,5 @@
-﻿using Chess.Console;
+﻿using Chess.ConsoleUI;
+using ChessLibrary;
 
 internal class Program
 {
@@ -6,28 +7,8 @@ internal class Program
     private static void Main(string[] args)
     {
         Utilities.InitializePieces(board);
+        ConsoleUtilities.PrintChessBoard(board);
     }
 
-    public static void PrintChessBoard()
-    {
-
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                if (board[i, j] == null)
-                {
-                    Console.Write($"  | ");
-                    continue;
-                }
-                Console.Write($"{board[i, j]}| ");
-
-
-            }
-            Console.WriteLine();
-            Console.WriteLine("-------------------------------");
-
-        }
-    }
 }
 

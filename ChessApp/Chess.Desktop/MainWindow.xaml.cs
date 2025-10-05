@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using ChessLibrary;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,8 +17,14 @@ namespace Chess.Desktop;
 /// </summary>
 public partial class MainWindow : Window
 {
+    public static string?[,] board = new string[8, 8];
+
     public MainWindow()
     {
         InitializeComponent();
+        Utilities.InitializePieces(board);
+
     }
+
+
 }
