@@ -67,4 +67,38 @@ public static class Utilities
 
         return isValidMove;
     }
+
+    public static bool IsInsideBoard(int x)
+    {
+        return (x >= 1 && x <= 8);
+    }
+
+    public static bool HasPieceAt(string[,] board, int fromRow, int fromCol)
+    {
+        return board[fromRow, fromCol] == null;
+    }
+
+    public static bool IsSameColor(string fromPiece, string toPiece)
+    {
+
+       
+            if (fromPiece[0] == toPiece[0])
+            {
+                return true;
+            } 
+        
+        return false;
+    }
+
+    public static bool IsTargetOpponentKing(string opponentPiece,char oppponentColor)
+    {
+        if (opponentPiece == $"{oppponentColor}K")
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+
 }

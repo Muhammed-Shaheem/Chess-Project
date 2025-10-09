@@ -48,15 +48,17 @@ public static class ConsoleUtilities
             goto FromCol;
         }
 
-        if (HasPieceAt(board, fromRow, fromCol)) // the (-1) is for indexing because the parameter passed is not 0 based indexing
+        if (Utilities.HasPieceAt(board, fromRow-1, fromCol-1)) // the (-1) is for indexing because the parameter passed is not 0 based indexing 
         {
-            Console.WriteLine("Invalid Input");
+            //Ensure piece present
+            Console.WriteLine("No piece selected to move.");
             goto FromRow;
         }
 
         char wOrB = board[fromRow - 1, fromCol - 1][0];
-        if (wOrB != turn)
+        if (wOrB != turn) // Ensure player moves their own piece
         {
+            
             if (turn == 'W')
             {
                 Console.WriteLine($"Cannot move black piece.Its white's turn.");
@@ -89,11 +91,6 @@ public static class ConsoleUtilities
 
         char piece = board[fromRow - 1, fromCol - 1][1];
         return (fromRow - 1, fromCol - 1, toRow - 1, toCol - 1, piece);
-    }
-
-    private static bool HasPieceAt(string[,] board, int fromRow, int fromCol)
-    {
-        return board[fromRow - 1, fromCol - 1] == null;
     }
 
     public static void PlayGame(string[,] board)
