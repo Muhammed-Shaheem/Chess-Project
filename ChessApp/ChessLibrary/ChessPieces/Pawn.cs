@@ -36,7 +36,7 @@ public static class Pawn
                     return false;
                 }
 
-                if ((toRow == fromRow + 2 && toCol == fromCol))
+                if ((toRow == fromRow + 2))
                 {
                     if (board[fromRow + 1, toCol] != null)
                     {
@@ -101,7 +101,7 @@ public static class Pawn
                 }
 
 
-                if ((toRow == fromRow - 2 && toCol == fromCol))
+                if ((toRow == fromRow - 2 ))
                 {
                     if (board[fromRow - 1, toCol] != null)
                     {
