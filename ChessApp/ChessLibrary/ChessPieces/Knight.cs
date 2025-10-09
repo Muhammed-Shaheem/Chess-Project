@@ -11,26 +11,24 @@ public static class Knight
 
         if (board[fromRow, fromCol] == "BN")
         {
-            if (board[toRow, toCol] == null)
+            if ((((toRow == fromRow + 2) && toCol == fromCol + 1 || toCol == fromCol - 1) || ((toRow == fromRow - 2) && toCol == fromCol + 1 || toCol == fromCol - 1) || ((toRow == fromRow - 1) && toCol == fromCol + 2 || toCol == fromCol - 2) || ((toRow == fromRow + 1) && toCol == fromCol + 2 || toCol == fromCol - 2)) == false)
             {
-               
-                if (((toRow == fromRow + 2) && toCol == fromCol + 1 || toCol == fromCol - 1) || ((toRow == fromRow - 2) && toCol == fromCol + 1 || toCol == fromCol - 1))
-                {
-                    Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BN");
-                    return true;
-                }
-
+                return false;
             }
-     
+
+            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BN");
+            return true;
         }
 
-        if (board[fromRow, fromCol] == "WN")
+        else if (board[fromRow, fromCol] == "WN")
         {
-            if (((toRow == fromRow + 2) && toCol == fromCol + 1 || toCol == fromCol - 1) || ((toRow == fromRow - 2) && toCol == fromCol + 1 || toCol == fromCol - 1))
+            if ((((toRow == fromRow + 2) && toCol == fromCol + 1 || toCol == fromCol - 1) || ((toRow == fromRow - 2) && toCol == fromCol + 1 || toCol == fromCol - 1) || ((toRow == fromRow - 1) && toCol == fromCol + 2 || toCol == fromCol - 2) || ((toRow == fromRow + 1) && toCol == fromCol + 2 || toCol == fromCol - 2)) == false)
             {
-                Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BN");
-                return true;
+                return false;
             }
+
+            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WN");
+            return true;
         }
         return false;
     }

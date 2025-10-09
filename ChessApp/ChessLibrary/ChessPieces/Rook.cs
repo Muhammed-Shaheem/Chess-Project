@@ -10,11 +10,11 @@ public static class Rook
             return false;
         }
 
-         
+
 
         if (board[fromRow, fromCol] == "BR")
         {
-          
+
             if ((fromRow == toRow || fromCol == toCol) == false)
             {
                 return false;
@@ -29,7 +29,7 @@ public static class Rook
             return true;
         }
 
-        if (board[fromRow, fromCol] == "WR")
+        else if (board[fromRow, fromCol] == "WR")
         {
             if ((fromRow == toRow || fromCol == toCol) == false)
             {
@@ -55,7 +55,7 @@ public static class Rook
             int length = Math.Abs(fromRow - toRow);
             if (fromRow < toRow)
             {
-                for (int i = 1; i < length ; i++)
+                for (int i = 1; i < length; i++)
                 {
                     if (board[fromRow + i, toCol] != null)
                     {
