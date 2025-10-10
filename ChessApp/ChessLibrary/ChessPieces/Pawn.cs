@@ -48,7 +48,7 @@ public static class Pawn
 
             if (toRow == 7)
             {
-                char promotedTo = 'P';
+                char promotedTo = 'Q';
                 switch (promotedTo)
                 {
                     case 'Q':
@@ -114,7 +114,7 @@ public static class Pawn
 
             if (toRow == 0)
             {
-                char promotedTo = 'P';
+                char promotedTo = 'Q';
                 switch (promotedTo)
                 {
                     case 'Q':
