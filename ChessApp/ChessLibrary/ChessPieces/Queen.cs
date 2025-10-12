@@ -9,7 +9,7 @@ public class Queen
         {
             return false;
 
-           
+
         }
 
         if (board[fromRow, fromCol] == "BQ")
@@ -32,7 +32,7 @@ public class Queen
 
         }
 
-        else if(board[fromRow, fromCol] == "WQ")
+        else if (board[fromRow, fromCol] == "WQ")
         {
             if (((fromRow == toRow || fromCol == toCol) || (Math.Abs(fromRow - toRow) == Math.Abs(fromCol - toCol))) == false)
             {
@@ -45,7 +45,7 @@ public class Queen
                 return false;
             }
 
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BQ");
+            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WQ");
             return true;
 
         }
@@ -54,5 +54,23 @@ public class Queen
     }
 
 
+    private static bool IsPathClear(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    {
+
+        if ((fromRow == toRow) || (fromCol == toCol))
+        {
+
+            return Rook.IsPathClear(board, fromRow, fromCol, toRow, toCol);
+
+        }
+
+        else
+        {
+            return Bishop.IsPathClear(board, fromRow, fromCol, toRow, toCol);
+        }
+
+
+        
+    }
 
 }

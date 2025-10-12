@@ -48,7 +48,7 @@ public static class Rook
         return false;
     }
 
-    private static bool IsPathClear(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    public static bool IsPathClear(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
     {
         if (fromRow != toRow)
         {

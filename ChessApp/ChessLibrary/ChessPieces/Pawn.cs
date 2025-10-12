@@ -16,16 +16,13 @@ public static class Pawn
             {
 
                 //striking move (checking if the striking move is possible on the left side) 
-                if ((toRow == fromRow + 1 && toCol == fromCol - 1) == false)
+                if (((toRow == fromRow + 1 && toCol == fromCol - 1) || (toRow == fromRow + 1 && toCol == fromCol + 1)) == false)
                 {
                     return false;
                 }
 
-                //striking move (checking if the striking move is possible on the right side) 
-                else if ((toRow == fromRow + 1 && toCol == fromCol + 1) == false)
-                {
-                    return false;
-                }
+                
+         
             }
 
             //straight move (checking if a piece is placed infront)
@@ -81,16 +78,11 @@ public static class Pawn
             if (board[toRow, toCol] != null)
             {
                 //striking move (checking if the striking move is possible on left side)
-                if ((toRow == fromRow - 1 && toCol == fromCol - 1) == false)
+                if (((toRow == fromRow - 1 && toCol == fromCol - 1) || (toRow == fromRow - 1 && toCol == fromCol + 1)) == false)
                 {
                     return false;
                 }
 
-                //striking move (checking if the striking move is possible on right side)
-                else if ((toRow == fromRow - 1 && toCol == fromCol + 1) == false)
-                {
-                    return false;
-                }
             }
 
             else if (board[toRow, toCol] == null)

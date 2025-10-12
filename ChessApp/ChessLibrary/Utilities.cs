@@ -37,8 +37,9 @@ public static class Utilities
         }
     }
 
-    public static bool IsValidMove(string[,] board, int fromRow, int fromCol, int toRow, int toCol, char pieceMoved)
+    public static bool PieceToMove(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
     {
+        char pieceMoved = board[fromRow, fromCol][1];
         bool isValidMove = false;
         switch (pieceMoved)
         {
@@ -73,7 +74,7 @@ public static class Utilities
         return (x >= 1 && x <= 8);
     }
 
-    public static bool HasPieceAt(string[,] board, int fromRow, int fromCol)
+    public static bool  HasPieceAt(string[,] board, int fromRow, int fromCol)
     {
         return board[fromRow, fromCol] == null;
     }

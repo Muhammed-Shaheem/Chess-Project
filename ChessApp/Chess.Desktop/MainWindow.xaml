@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chess.Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="500">
-    <Grid>
+        Title="Chess" Height="500" Width="500">
+    <Grid x:Name="ChessGrid">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -28,22 +28,20 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <!--row 1-->
-        <Button Grid.Row="0" Grid.Column="0" Background="Beige" x:Name="btn_00" />
-        <Button Grid.Row="0" Grid.Column="1" Background="#769656" x:Name="btn_01" />
-        <Button Grid.Row="0" Grid.Column="2" Background="Beige"  x:Name="btn_02"/>
-        <Button Grid.Row="0" Grid.Column="3" Background="#769656" x:Name="btn_03" />
-        <Button Grid.Row="0" Grid.Column="4" Background="Beige"  x:Name="btn_04"/>
-        <Button Grid.Row="0" Grid.Column="5" Background="#769656"  x:Name="btn_05"/>
-        <Button Grid.Row="0" Grid.Column="6" Background="Beige"  x:Name="btn_06"/>
-        <Button Grid.Row="0" Grid.Column="7" Background="#769656" x:Name="btn_07"/>
+        
+        <!--<Button Grid.Row="0" Grid.Column="0" Background="Beige" x:Name="btn_00" Tag="0,0" Click="btn_00_Click" />
+        <Button Grid.Row="0" Grid.Column="1" Background="#769656" x:Name="btn_01" Tag="0,1" Click="btn_00_Click" />
+        <Button Grid.Row="0" Grid.Column="2" Background="Beige"  x:Name="btn_02" Tag="0,2"/>
+        <Button Grid.Row="0" Grid.Column="3" Background="#769656" x:Name="btn_03" Tag="0,3" />
+        <Button Grid.Row="0" Grid.Column="4" Background="Beige"  x:Name="btn_04" Tag="0,4"/>
+        <Button Grid.Row="0" Grid.Column="5" Background="#769656"  x:Name="btn_05" Tag="0,5"/>
+        <Button Grid.Row="0" Grid.Column="6" Background="Beige"  x:Name="btn_06" Tag="0,6"/>
+        <Button Grid.Row="0" Grid.Column="7" Background="#769656" x:Name="btn_07" Tag="0,7"/>-->
 
-        <!--row 2-->
+        <!--row 2--><!--
         <Button Grid.Row="1" Grid.Column="0" Background="#769656" x:Name="btn_10"  >
-            <Image Source="C:\Users\shahe\source\repos\Chess-Project\ChessApp\Chess.Desktop\Images\WP.png" Stretch="Uniform"/>
         </Button>
         <Button Grid.Row="1" Grid.Column="1" Background="Beige" x:Name="btn_11" >
-            <Image Source="C:\Users\shahe\source\repos\Chess-Project\ChessApp\Chess.Desktop\Images\WP.png"/>
         </Button>
         <Button Grid.Row="1" Grid.Column="2" Background="#769656" x:Name="btn_12"/>
         <Button Grid.Row="1" Grid.Column="3" Background="Beige"  x:Name="btn_13"/>
@@ -52,7 +50,7 @@
         <Button Grid.Row="1" Grid.Column="6" Background="#769656"  x:Name="btn_16"/>
         <Button Grid.Row="1" Grid.Column="7" Background="Beige"  x:Name="btn_17"/>
 
-        <!--row 3-->
+        --><!--row 3--><!--
         <Button Grid.Row="2" Grid.Column="0" Background="Beige" x:Name="btn_20"/>
         <Button Grid.Row="2" Grid.Column="1" Background="#769656" x:Name="btn_21" />
         <Button Grid.Row="2" Grid.Column="2" Background="Beige" x:Name="btn_22"/>
@@ -63,7 +61,7 @@
         <Button Grid.Row="2" Grid.Column="7" Background="#769656" x:Name="btn_27"/>
 
 
-        <!--row 4-->
+        --><!--row 4--><!--
         <Button Grid.Row="3" Grid.Column="0" Background="#769656" />
         <Button Grid.Row="3" Grid.Column="1" Background="Beige" />
         <Button Grid.Row="3" Grid.Column="2" Background="#769656" />
@@ -73,7 +71,7 @@
         <Button Grid.Row="3" Grid.Column="6" Background="#769656" />
         <Button Grid.Row="3" Grid.Column="7" Background="Beige" />
 
-        <!--row 5-->
+        --><!--row 5--><!--
         <Button Grid.Row="4" Grid.Column="0" Background="Beige" />
         <Button Grid.Row="4" Grid.Column="1" Background="#769656" />
         <Button Grid.Row="4" Grid.Column="2" Background="Beige" />
@@ -83,7 +81,7 @@
         <Button Grid.Row="4" Grid.Column="6" Background="Beige" />
         <Button Grid.Row="4" Grid.Column="7" Background="#769656" />
 
-        <!--row 6-->
+        --><!--row 6--><!--
         <Button Grid.Row="5" Grid.Column="0" Background="#769656" />
         <Button Grid.Row="5" Grid.Column="1" Background="Beige" />
         <Button Grid.Row="5" Grid.Column="2" Background="#769656" />
@@ -93,7 +91,7 @@
         <Button Grid.Row="5" Grid.Column="6" Background="#769656" />
         <Button Grid.Row="5" Grid.Column="7" Background="Beige" />
 
-        <!--row 7-->
+        --><!--row 7--><!--
         <Button Grid.Row="6" Grid.Column="0" Background="Beige" />
         <Button Grid.Row="6" Grid.Column="1" Background="#769656" />
         <Button Grid.Row="6" Grid.Column="2" Background="Beige" />
@@ -104,7 +102,7 @@
         <Button Grid.Row="6" Grid.Column="7" Background="#769656" />
 
 
-        <!--row 6-->
+        --><!--row 6--><!--
         <Button Grid.Row="7" Grid.Column="0" Background="#769656" />
         <Button Grid.Row="7" Grid.Column="1" Background="Beige" />
         <Button Grid.Row="7" Grid.Column="2" Background="#769656" />
@@ -112,7 +110,7 @@
         <Button Grid.Row="7" Grid.Column="4" Background="#769656" />
         <Button Grid.Row="7" Grid.Column="5" Background="Beige" />
         <Button Grid.Row="7" Grid.Column="6" Background="#769656" />
-        <Button Grid.Row="7" Grid.Column="7" Background="Beige" />
+        <Button Grid.Row="7" Grid.Column="7" Background="Beige" />-->
 
     </Grid>
 

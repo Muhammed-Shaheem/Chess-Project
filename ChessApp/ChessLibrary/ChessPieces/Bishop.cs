@@ -18,7 +18,7 @@ public class Bishop
                 return false;
             }
 
-            if (IsPathClear(board,fromRow,fromCol,toRow,toCol) == false)
+            if (IsPathClear(board, fromRow, fromCol, toRow, toCol) == false)
             {
                 return false;
             }
@@ -50,52 +50,52 @@ public class Bishop
         return false;
     }
 
-    private static bool IsPathClear(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    public static bool IsPathClear(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
     {
-      
-            int length = Math.Abs(fromRow - toRow);
-            if (fromRow > toRow && fromCol > toCol)
+
+        int length = Math.Abs(fromRow - toRow);
+        if (fromRow > toRow && fromCol > toCol)
+        {
+            for (int i = 1; i < length; i++)
             {
-                for (int i = 1; i < length; i++)
+                if (board[fromRow - i, fromCol - i] != null)
                 {
-                    if (board[fromRow - i, fromCol - i] != null)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
-            else if (fromRow > toRow && fromCol < toCol)
+        }
+        else if (fromRow > toRow && fromCol < toCol)
+        {
+            for (int i = 1; i < length; i++)
             {
-                for (int i = 1; i < length; i++)
+                if (board[fromRow - i, fromCol + i] != null)
                 {
-                    if (board[fromRow - i, fromCol + i] != null)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
-        
-            else if (fromRow < toRow && fromCol < toCol)
+        }
+
+        else if (fromRow < toRow && fromCol < toCol)
+        {
+            for (int i = 1; i < length - 1; i++)
             {
-                for (int i = 1; i < length - 1; i++)
+                if (board[fromRow + i, fromCol + i] != null)
                 {
-                    if (board[fromRow + i, fromCol + i] != null)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
-            else if (fromRow < toRow && fromCol > toCol)
+        }
+        else if (fromRow < toRow && fromCol > toCol)
+        {
+            for (int i = 1; i < length - 1; i++)
             {
-                for (int i = 1; i < length - 1; i++)
+                if (board[fromRow + i, fromCol - i] != null)
                 {
-                    if (board[fromRow + i, fromCol - i] != null)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
-        
+        }
+
 
         return true;
     }
