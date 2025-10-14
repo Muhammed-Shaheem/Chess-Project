@@ -7,25 +7,6 @@ namespace Chess.Desktop;
 
 public static class DesktopUtilities
 {
-    public static bool PlayGame(string[,] board, int fromRow, int fromCol, int toRow, int toCol, char turn)
-    {
-
-        bool isValidInput = UserInputValidation(board, fromRow, fromCol, turn);
-        if (isValidInput == false)
-        {
-            return false;
-        }
-        bool isValidMove = Utilities.PieceToMove(board, fromRow, fromCol, toRow, toCol);
-        if (isValidMove == false)
-        {
-            MessageBox.Show("Invalid Move.");
-            return false;
-        }
-
-
-        return true;
-    }
-
     public static void PrintChessBoard(string[,] board, Grid ChessGrid, MainWindow mainWindow)
     {
 
@@ -37,8 +18,6 @@ public static class DesktopUtilities
                 Button button = new();
                 button.Content = board[i, j];
                 button.FontSize = 35;
-                button.Click += mainWindow.Btn_Click;
-                //keyValuePairs.Add($"{i}{j}", button);
                 button.Tag = (i, j);
                 if (i % 2 == 0)
                 {
@@ -78,10 +57,24 @@ public static class DesktopUtilities
     }
 
 
+    public static bool PlayGame(string[,] board, int fromRow, int fromCol, int toRow, int toCol, char turn)
+    {
+
+        bool isValidInput = UserInputValidation(board, fromRow, fromCol, turn);
+        if (isValidInput == false)
+        {
+            return false;
+        }
+        bool isValidMove = Utilities.PieceToMove(board, fromRow, fromCol, toRow, toCol);
+        if (isValidMove == false)
+        {
+            MessageBox.Show("Invalid Move.");
+            return false;
+        }
 
 
-
-
+        return true;
+    }
 
     public static bool UserInputValidation(string[,] board, int fromRow, int fromCol, char turn)
     {
@@ -113,6 +106,5 @@ public static class DesktopUtilities
         }
         return true;
     }
-
 
 }
