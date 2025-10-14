@@ -8,11 +8,12 @@ namespace Chess.Desktop;
 
 public partial class MainWindow : Window
 {
-    public Button? firstSelected;
-    public (int Row, int Col) from;
+
     public static string[,] board = new string[8, 8];
+    public Button? firstSelected;
     private char turn = 'W';
-    private string DefaultColor;
+    private string? DefaultColor;
+    public (int Row, int Col) from;
 
     public MainWindow()
     {
@@ -44,39 +45,13 @@ public partial class MainWindow : Window
 
     }
 
-    private void HighlightPossibleMoves(Button button)
-    {
-        if (button.Content.ToString() == "WP" || button.Content.ToString() == "BP")
-        {
-            var movesPossible = Pawn.PossibleMoves(board, from.Row, from.Col);
-            foreach (var move in movesPossible)
-            {
-
-                foreach (var child in ChessGrid.Children)
-                {
-                    if (child is Button btn)
-                    {
-                        (int toRow, int toCol) = ((int, int))btn.Tag;
-
-                        if (toRow == move.Row && toCol == move.Col)
-                        {
-                            btn.Background = Brushes.Aquamarine;
-                            break;
-                        }
-                    }
-                }
-            }
-
-        }
-    }
-
     private void OnToBtnClick(int row, int col, Button button)
     {
         var (toRow, toCol) = (row, col);
         bool isvalidMove = DesktopUtilities.PlayGame(board, from.Row, from.Col, toRow, toCol, turn);
         if (isvalidMove == false)
         {
-            firstSelected!.ClearValue(Button.BackgroundProperty);
+            firstSelected!.Background = (Brush?)new BrushConverter().ConvertFromString(DefaultColor);
             firstSelected = null;
             return;
         }
@@ -98,5 +73,6 @@ public partial class MainWindow : Window
         firstSelected = button;
         from = (row, col);
     }
+
 }
 
