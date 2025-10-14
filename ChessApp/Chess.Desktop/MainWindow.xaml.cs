@@ -45,7 +45,7 @@ public partial class MainWindow : Window
 
     }
 
-    private void OnToBtnClick(int row, int col, Button button)
+    private void OnToBtnClick(int row, int col, Button toButton)
     {
         var (toRow, toCol) = (row, col);
         bool isvalidMove = DesktopUtilities.PlayGame(board, from.Row, from.Col, toRow, toCol, turn);
@@ -59,23 +59,32 @@ public partial class MainWindow : Window
         else
         {
             firstSelected!.Background = (Brush?)new BrushConverter().ConvertFromString(DefaultColor!);
-            button.Content = firstSelected.Content;
-            firstSelected.Content = null;
-            firstSelected = null;
+            MovePieceInBoard(toButton);
             turn = turn == 'B' ? 'W' : 'B';
         }
     }
 
-    private void OnFromBtnClick(Button button, int row, int col)
+    private void MovePieceInBoard(Button toButton)
     {
-        if (button.Content == null)
+        if (true)
+        {
+
+        }
+        toButton.Content = firstSelected!.Content;
+        firstSelected.Content = null;
+        firstSelected = null;
+    }
+
+    private void OnFromBtnClick(Button fromButton, int row, int col)
+    {
+        if (fromButton.Content == null)
         {
             firstSelected = null;
             return;
         }
-        DefaultColor = button.Background.ToString();
-        button.Background = new SolidColorBrush(Color.FromRgb(246, 246, 105));
-        firstSelected = button;
+        DefaultColor = fromButton.Background.ToString();
+        fromButton.Background = new SolidColorBrush(Color.FromRgb(246, 246, 105));
+        firstSelected = fromButton;
         from = (row, col);
     }
 

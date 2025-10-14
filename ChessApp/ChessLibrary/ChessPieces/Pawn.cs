@@ -63,10 +63,14 @@ public static class Pawn
 
 
                 }
+                return true;
 
             }
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BP");
-            return true;
+            else
+            {
+                Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BP");
+                return true; 
+            }
         }
 
         //if piece moved is White
@@ -124,10 +128,14 @@ public static class Pawn
 
 
                 }
+                return true;
             }
 
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WP");
-            return true;
+            else
+            {
+                Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WP");
+                return true; 
+            }
         }
 
         return false;

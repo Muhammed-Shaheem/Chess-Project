@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chess.Desktop"
         mc:Ignorable="d"
-        Icon="C:\Users\shahe\source\repos\Chess-Project\ChessApp\Chess.Desktop\Images\BP.ico"
+        Icon="C:\Users\shahe\source\repos\Chess-Project\ChessApp\Chess.Desktop\Images\BP.png"
         WindowStartupLocation="CenterScreen"
         Title="Chess" Height="700" Width="700">
     <Grid x:Name="ChessGrid">
