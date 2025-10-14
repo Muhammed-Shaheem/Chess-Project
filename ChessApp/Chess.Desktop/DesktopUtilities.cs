@@ -76,9 +76,7 @@ public static class DesktopUtilities
             {
                 Title = "Invalid Move",
                 Message = "That move is not allowed!",
-                Type = NotificationType.Error,
-                
-                
+                Type = NotificationType.Error 
             });
             return false;
         }
@@ -92,7 +90,13 @@ public static class DesktopUtilities
         if (Utilities.HasPieceAt(board, fromRow, fromCol))
         {
             //Ensure piece present
-            MessageBox.Show("No piece selected to move.");
+            var notificationManager = new NotificationManager();
+            notificationManager.Show(new NotificationContent
+            {
+                Title = "Invalid Move",
+                Message = "No piece selected to move.",
+                Type = NotificationType.Error
+            });
             return false;
 
         }
@@ -108,9 +112,7 @@ public static class DesktopUtilities
                 {
                     Title = "Invalid Move",
                     Message = "Cannot move black piece.Its white's turn.",
-                    Type = NotificationType.Error,
-
-
+                    Type = NotificationType.Error
                 });
                 return false;
             }
@@ -121,9 +123,7 @@ public static class DesktopUtilities
                 {
                     Title = "Invalid Move",
                     Message = "Cannot move white piece.Its black's turn.",
-                    Type = NotificationType.Error,
-
-
+                    Type = NotificationType.Error
                 });
                 return false;
             }

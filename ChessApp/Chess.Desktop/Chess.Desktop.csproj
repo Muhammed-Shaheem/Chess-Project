@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Notifications.Wpf" Version="0.1.1" />
   </ItemGroup>
 

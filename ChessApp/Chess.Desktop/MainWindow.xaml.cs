@@ -68,6 +68,11 @@ public partial class MainWindow : Window
 
     private void OnFromBtnClick(Button button, int row, int col)
     {
+        if (button.Content == null)
+        {
+            firstSelected = null;
+            return;
+        }
         DefaultColor = button.Background.ToString();
         button.Background = new SolidColorBrush(Color.FromRgb(246, 246, 105));
         firstSelected = button;
