@@ -81,9 +81,8 @@ public static class Utilities
 
     public static bool IsSameColor(string fromPiece, string toPiece)
     {
-
        
-            if (fromPiece[0] == toPiece[0])
+            if (fromPiece?[0] == toPiece?[0])
             {
                 return true;
             } 

@@ -1,55 +1,42 @@
 ﻿using ChessLibrary;
+using ChessLibrary.ChessPieces;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Chess.Desktop;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window
 {
-    public Button firstSelected;
+    public Button? firstSelected;
     public (int Row, int Col) from;
-    public static string?[,] board = new string[8, 8];
-    private char turn='W';
+    public static string[,] board = new string[8, 8];
+    private char turn = 'W';
+    private string DefaultColor;
 
     public MainWindow()
     {
         InitializeComponent();
         Utilities.InitializePieces(board);
-        PrintChessBoard(board);
+        DesktopUtilities.PrintChessBoard(board, ChessGrid, this);
 
 
     }
 
-    private void Btn_Click(object sender, RoutedEventArgs e)
+    public void Btn_Click(object sender, RoutedEventArgs e)
     {
-        Button button = sender as Button;
+        Button button = (Button)sender;
         (int row, int col) = ((int, int))button.Tag;
 
         if (firstSelected == null)
         {
-            button.Background = Brushes.SlateGray;
-            firstSelected = button;
-            from = (row, col);
+            OnFromBtnClick(button, row, col);
+            //HighlightPossibleMoves(button);
         }
         else
         {
-            var (toRow, toCol) = (row, col);
-       
-            bool isvalid = DesktopUtilities.PlayGame(board, from.Row, from.Col, toRow, toCol,turn);
-            if (isvalid == false)
-            {
-                firstSelected = null;
-                PrintChessBoard(board);
-                return;
-            }
-            firstSelected = null;
-            PrintChessBoard(board);
-            turn = turn == 'B' ? 'W' : 'B';
 
+            OnToBtnClick(row, col, button);
         }
 
 
@@ -57,61 +44,59 @@ public partial class MainWindow : Window
 
     }
 
-
-    public void PrintChessBoard(string[,] board)
+    private void HighlightPossibleMoves(Button button)
     {
-
-        for (int i = 0; i < 8; i++)
+        if (button.Content.ToString() == "WP" || button.Content.ToString() == "BP")
         {
-            for (int j = 0; j < 8; j++)
+            var movesPossible = Pawn.PossibleMoves(board, from.Row, from.Col);
+            foreach (var move in movesPossible)
             {
-                Button button = new();
-                button.Content = board[i, j];
-                button.FontSize = 35;
-                button.Click += Btn_Click;
-                button.Tag = (i, j);
-                if (i % 2 == 0)
-                {
 
-                    if (j % 2 == 0)
+                foreach (var child in ChessGrid.Children)
+                {
+                    if (child is Button btn)
                     {
-                        button.Background = Brushes.Beige;
-                    }
-                    else
-                    {
-                        button.Background = (Brush?)new BrushConverter().ConvertFromString("#769656");
+                        (int toRow, int toCol) = ((int, int))btn.Tag;
+
+                        if (toRow == move.Row && toCol == move.Col)
+                        {
+                            btn.Background = Brushes.Aquamarine;
+                            break;
+                        }
                     }
                 }
-                else
-                {
-                    if (j % 2 == 0)
-                    {
-                        button.Background = (Brush?)new BrushConverter().ConvertFromString("#769656");
-                    }
-                    else
-                    {
-                        button.Background = Brushes.Beige;
-
-                    }
-                }
-
-                Grid.SetColumn(button, j);
-                Grid.SetRow(button, i);
-
-
-                ChessGrid.Children.Add(button);
-
             }
+
+        }
+    }
+
+    private void OnToBtnClick(int row, int col, Button button)
+    {
+        var (toRow, toCol) = (row, col);
+        bool isvalidMove = DesktopUtilities.PlayGame(board, from.Row, from.Col, toRow, toCol, turn);
+        if (isvalidMove == false)
+        {
+            firstSelected!.ClearValue(Button.BackgroundProperty);
+            firstSelected = null;
+            return;
         }
 
+        else
+        {
+            firstSelected!.Background = (Brush?)new BrushConverter().ConvertFromString(DefaultColor);
+            button.Content = firstSelected.Content;
+            firstSelected.Content = null;
+            firstSelected = null;
+            turn = turn == 'B' ? 'W' : 'B';
+        }
+    }
+
+    private void OnFromBtnClick(Button button, int row, int col)
+    {
+        DefaultColor = button.Background.ToString();
+        button.Background = Brushes.IndianRed;
+        firstSelected = button;
+        from = (row, col);
     }
 }
 
-public static class test
-{
-    public static void testmethod()
-    {
-        MainWindow mainWindow = new MainWindow();
-        mainWindow.Show();
-    }
-}
