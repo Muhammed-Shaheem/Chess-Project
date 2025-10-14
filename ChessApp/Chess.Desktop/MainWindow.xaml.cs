@@ -51,14 +51,14 @@ public partial class MainWindow : Window
         bool isvalidMove = DesktopUtilities.PlayGame(board, from.Row, from.Col, toRow, toCol, turn);
         if (isvalidMove == false)
         {
-            firstSelected!.Background = (Brush?)new BrushConverter().ConvertFromString(DefaultColor);
+            firstSelected!.Background = (Brush?)new BrushConverter().ConvertFromString(DefaultColor!);
             firstSelected = null;
             return;
         }
 
         else
         {
-            firstSelected!.Background = (Brush?)new BrushConverter().ConvertFromString(DefaultColor);
+            firstSelected!.Background = (Brush?)new BrushConverter().ConvertFromString(DefaultColor!);
             button.Content = firstSelected.Content;
             firstSelected.Content = null;
             firstSelected = null;
@@ -69,7 +69,7 @@ public partial class MainWindow : Window
     private void OnFromBtnClick(Button button, int row, int col)
     {
         DefaultColor = button.Background.ToString();
-        button.Background = Brushes.IndianRed;
+        button.Background = new SolidColorBrush(Color.FromRgb(246, 246, 105));
         firstSelected = button;
         from = (row, col);
     }

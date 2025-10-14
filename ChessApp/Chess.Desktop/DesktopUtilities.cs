@@ -1,4 +1,5 @@
 ﻿using ChessLibrary;
+using Notifications.Wpf;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -19,6 +20,7 @@ public static class DesktopUtilities
                 button.Content = board[i, j];
                 button.FontSize = 35;
                 button.Tag = (i, j);
+                button.Click += mainWindow.Btn_Click;
                 if (i % 2 == 0)
                 {
 
@@ -56,6 +58,7 @@ public static class DesktopUtilities
 
     }
 
+ 
 
     public static bool PlayGame(string[,] board, int fromRow, int fromCol, int toRow, int toCol, char turn)
     {
@@ -68,7 +71,15 @@ public static class DesktopUtilities
         bool isValidMove = Utilities.PieceToMove(board, fromRow, fromCol, toRow, toCol);
         if (isValidMove == false)
         {
-            MessageBox.Show("Invalid Move.");
+            var notificationManager = new NotificationManager();
+            notificationManager.Show(new NotificationContent
+            {
+                Title = "Invalid Move",
+                Message = "That move is not allowed!",
+                Type = NotificationType.Error,
+                
+                
+            });
             return false;
         }
 
@@ -82,7 +93,6 @@ public static class DesktopUtilities
         {
             //Ensure piece present
             MessageBox.Show("No piece selected to move.");
-            //goto FromRow;
             return false;
 
         }
@@ -93,14 +103,28 @@ public static class DesktopUtilities
 
             if (turn == 'W')
             {
-                MessageBox.Show($"Cannot move black piece.Its white's turn.");
-                //goto FromRow;
+                var notificationManager = new NotificationManager();
+                notificationManager.Show(new NotificationContent
+                {
+                    Title = "Invalid Move",
+                    Message = "Cannot move black piece.Its white's turn.",
+                    Type = NotificationType.Error,
+
+
+                });
                 return false;
             }
             else
             {
-                MessageBox.Show($"Cannot move white piece.Its black's turn.");
-                //goto FromRow;
+                var notificationManager = new NotificationManager();
+                notificationManager.Show(new NotificationContent
+                {
+                    Title = "Invalid Move",
+                    Message = "Cannot move white piece.Its black's turn.",
+                    Type = NotificationType.Error,
+
+
+                });
                 return false;
             }
         }
