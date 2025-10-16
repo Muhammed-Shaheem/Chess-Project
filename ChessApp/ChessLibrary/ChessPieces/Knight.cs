@@ -16,7 +16,6 @@ public static class Knight
                 return false;
             }
 
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BN");
             return true;
         }
 
@@ -27,7 +26,6 @@ public static class Knight
                 return false;
             }
 
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WN");
             return true;
         }
         return false;

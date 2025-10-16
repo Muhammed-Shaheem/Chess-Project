@@ -19,8 +19,8 @@ public static class DesktopUtilities
             {
 
                 Button button = new();
-                
-                button.Content = ButtonContent(i,j);
+
+                button.Content = ButtonContent(i, j);
                 button.FontSize = 35;
                 button.Tag = (i, j);
                 button.Click += mainWindow.Btn_Click;
@@ -71,7 +71,7 @@ public static class DesktopUtilities
         if (row == 1)
         {
             img.Source = new BitmapImage(new Uri("C:\\Users\\shahe\\source\\repos\\Chess-Project\\ChessApp\\Chess.Desktop\\Images\\BP.png"));
-            
+
         }
         else if ((row == 0 && col == 0) || (row == 0 && col == 7))
         {
@@ -82,47 +82,47 @@ public static class DesktopUtilities
         {
             img.Source = new BitmapImage(new Uri("C:\\Users\\shahe\\source\\repos\\Chess-Project\\ChessApp\\Chess.Desktop\\Images\\BN.png"));
         }
-        
+
         else if ((row == 0 && col == 2) || (row == 0 && col == 5))
         {
             img.Source = new BitmapImage(new Uri("C:\\Users\\shahe\\source\\repos\\Chess-Project\\ChessApp\\Chess.Desktop\\Images\\BB.png"));
         }
-        
+
         else if ((row == 0 && col == 3))
         {
             img.Source = new BitmapImage(new Uri("C:\\Users\\shahe\\source\\repos\\Chess-Project\\ChessApp\\Chess.Desktop\\Images\\BQ.png"));
         }
-        
+
         else if ((row == 0 && col == 4))
         {
             img.Source = new BitmapImage(new Uri("C:\\Users\\shahe\\source\\repos\\Chess-Project\\ChessApp\\Chess.Desktop\\Images\\BK.png"));
         }
-        
+
         else if ((row == 7 && col == 0) || (row == 7 && col == 7))
         {
             img.Source = new BitmapImage(new Uri("C:\\Users\\shahe\\source\\repos\\Chess-Project\\ChessApp\\Chess.Desktop\\Images\\WR.png"));
         }
-        
+
         else if ((row == 7 && col == 1) || (row == 7 && col == 6))
         {
             img.Source = new BitmapImage(new Uri("C:\\Users\\shahe\\source\\repos\\Chess-Project\\ChessApp\\Chess.Desktop\\Images\\WN.png"));
         }
-        
+
         else if ((row == 7 && col == 2) || (row == 7 && col == 5))
         {
             img.Source = new BitmapImage(new Uri("C:\\Users\\shahe\\source\\repos\\Chess-Project\\ChessApp\\Chess.Desktop\\Images\\WB.png"));
         }
-        
+
         else if ((row == 7 && col == 3))
         {
             img.Source = new BitmapImage(new Uri("C:\\Users\\shahe\\source\\repos\\Chess-Project\\ChessApp\\Chess.Desktop\\Images\\WQ.png"));
         }
-        
+
         else if ((row == 7 && col == 4))
         {
             img.Source = new BitmapImage(new Uri("C:\\Users\\shahe\\source\\repos\\Chess-Project\\ChessApp\\Chess.Desktop\\Images\\WK.png"));
         }
-        
+
         else if (row == 6)
         {
             img.Source = new BitmapImage(new Uri("C:\\Users\\shahe\\source\\repos\\Chess-Project\\ChessApp\\Chess.Desktop\\Images\\WP.png"));
@@ -145,6 +145,7 @@ public static class DesktopUtilities
         bool isValidMove = Utilities.PieceToMove(board, fromRow, fromCol, toRow, toCol);
         if (isValidMove == false)
         {
+
             var notificationManager = new NotificationManager();
             notificationManager.Show(new NotificationContent
             {
@@ -163,6 +164,7 @@ public static class DesktopUtilities
     {
         if (Utilities.HasPieceAt(board, fromRow, fromCol))
         {
+       
             //Ensure piece present
             var notificationManager = new NotificationManager();
             notificationManager.Show(new NotificationContent
@@ -181,6 +183,7 @@ public static class DesktopUtilities
 
             if (turn == 'W')
             {
+               
                 var notificationManager = new NotificationManager();
                 notificationManager.Show(new NotificationContent
                 {

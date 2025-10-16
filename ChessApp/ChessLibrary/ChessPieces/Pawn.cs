@@ -40,37 +40,9 @@ public static class Pawn
                 }
             }
 
-            if (toRow == 7)
-            {
-                char promotedTo = 'Q';
-                switch (promotedTo)
-                {
-                    case 'Q':
-                        Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BQ");
-                        break;
 
-                    case 'R':
-                        Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BR");
-                        break;
+            return true;
 
-                    case 'N':
-                        Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BN");
-                        break;
-
-                    case 'B':
-                        Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BB");
-                        break;
-
-
-                }
-                return true;
-
-            }
-            else
-            {
-                Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BP");
-                return true; 
-            }
         }
 
         //if piece moved is White
@@ -105,44 +77,16 @@ public static class Pawn
 
             }
 
-            if (toRow == 0)
-            {
-                char promotedTo = 'Q';
-                switch (promotedTo)
-                {
-                    case 'Q':
-                        Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WQ");
-                        break;
 
-                    case 'R':
-                        Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WR");
-                        break;
+            return true;
 
-                    case 'N':
-                        Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WN");
-                        break;
-
-                    case 'B':
-                        Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WB");
-                        break;
-
-
-                }
-                return true;
-            }
-
-            else
-            {
-                Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WP");
-                return true; 
-            }
         }
 
         return false;
 
 
     }
-     public static bool IsMovePossible(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    public static bool IsMovePossible(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
     {
         if (board[toRow, toCol] != null && Utilities.IsSameColor(board[fromRow, fromCol], board[toRow, toCol]))
         {
@@ -180,7 +124,7 @@ public static class Pawn
                 }
             }
 
-           
+
             return true;
         }
 
@@ -216,7 +160,7 @@ public static class Pawn
 
             }
 
-           
+
 
             return true;
         }
@@ -237,7 +181,7 @@ public static class Pawn
                 {
                     ToPosition to = new();
                     to.Row = i;
-                    to.Col =j;
+                    to.Col = j;
                     possibleMoves.Add(to);
                 }
             }

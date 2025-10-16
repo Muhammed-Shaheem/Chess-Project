@@ -25,7 +25,6 @@ public class Queen
                 return false;
             }
 
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BQ");
             return true;
 
 
@@ -45,7 +44,6 @@ public class Queen
                 return false;
             }
 
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WQ");
             return true;
 
         }

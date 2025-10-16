@@ -25,7 +25,6 @@ public static class Rook
                 return false;
             }
 
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BR");
             return true;
         }
 
@@ -41,7 +40,6 @@ public static class Rook
                 return false;
             }
 
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WR");
             return true;
         }
 

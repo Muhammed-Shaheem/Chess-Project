@@ -23,7 +23,6 @@ public class Bishop
                 return false;
             }
 
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BB");
             return true;
 
 
@@ -42,7 +41,6 @@ public class Bishop
                 return false;
             }
 
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WB");
             return true;
 
         }

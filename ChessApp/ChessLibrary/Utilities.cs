@@ -4,9 +4,9 @@ namespace ChessLibrary;
 
 public static class Utilities
 {
-    public static void MovePiece(string[,] board, int fromRow, int fromCol, int toRow, int toCol, string piece)
+    public static void MovePiece(string[,] board, int fromRow, int fromCol, int toRow, int toCol,string? piece = null)
     {
-        board[toRow, toCol] = piece;
+        board[toRow, toCol] = board[fromRow,fromCol];
         board[fromRow, fromCol] = null;
     }
 

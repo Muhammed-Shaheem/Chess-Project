@@ -16,7 +16,6 @@ public class King
             {
                 return false;
             }
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "BK");
             return true;
         }
 
@@ -26,7 +25,6 @@ public class King
             {
                 return false;
             }
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol, "WK");
             return true;
         }
 
