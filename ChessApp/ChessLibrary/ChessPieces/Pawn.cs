@@ -38,6 +38,11 @@ public static class Pawn
                     }
 
                 }
+
+                //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
+                //{
+                //    return false;
+                //}
             }
 
 
@@ -75,6 +80,13 @@ public static class Pawn
 
                 }
 
+                //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
+                //{
+                //    return false;
+                //}
+
+
+
             }
 
 
@@ -86,6 +98,9 @@ public static class Pawn
 
 
     }
+
+  
+
     public static bool IsMovePossible(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
     {
         if (board[toRow, toCol] != null && Utilities.IsSameColor(board[fromRow, fromCol], board[toRow, toCol]))
@@ -170,23 +185,5 @@ public static class Pawn
 
     }
 
-    public static List<ToPosition> PossibleMoves(string[,] board, int fromRow, int fromCol)
-    {
-        List<ToPosition> possibleMoves = new();
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                if (IsMovePossible(board, fromRow, fromCol, i, j))
-                {
-                    ToPosition to = new();
-                    to.Row = i;
-                    to.Col = j;
-                    possibleMoves.Add(to);
-                }
-            }
-        }
-
-        return possibleMoves;
-    }
+  
 }

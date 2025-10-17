@@ -12,7 +12,7 @@ public class King
 
         if (board[fromRow, fromCol] == "BK")
         {
-            if (((toRow == fromRow + 1 && (toCol == fromCol || toCol == fromCol + 1 || toCol == fromRow - 1)) || (toRow == fromRow - 1 && (toCol == fromCol || toCol == fromCol + 1 || toCol == fromRow - 1))) == false)
+            if (((toRow == fromRow + 1 && (toCol == fromCol || toCol == fromCol + 1 || toCol == fromCol - 1)) || (toRow == fromRow - 1 && (toCol == fromCol || toCol == fromCol + 1 || toCol == fromCol - 1)) || (toRow == fromRow && (toCol == fromCol + 1 || toCol == fromCol - 1))) == false)
             {
                 return false;
             }
@@ -21,7 +21,7 @@ public class King
 
         else if (board[fromRow, fromCol] == "WK")
         {
-            if (((toRow == fromRow + 1 && (toCol == fromCol || toCol == fromCol + 1 || toCol == fromRow - 1)) || (toRow == fromRow - 1 && (toCol == fromCol || toCol == fromCol + 1 || toCol == fromRow - 1))) == false)
+            if (((toRow == fromRow + 1 && (toCol == fromCol || toCol == fromCol + 1 || toCol == fromCol - 1)) || (toRow == fromRow - 1 && (toCol == fromCol || toCol == fromCol + 1 || toCol == fromCol - 1)) || (toRow == fromRow && (toCol == fromCol + 1 || toCol == fromCol - 1))) == false)
             {
                 return false;
             }

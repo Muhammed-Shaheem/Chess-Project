@@ -23,6 +23,12 @@ public class Bishop
                 return false;
             }
 
+            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
+            //{
+            //    return false;
+            //}
+
+
             return true;
 
 
@@ -40,6 +46,11 @@ public class Bishop
             {
                 return false;
             }
+
+            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
+            //{
+            //    return false;
+            //}
 
             return true;
 
@@ -75,7 +86,7 @@ public class Bishop
 
         else if (fromRow < toRow && fromCol < toCol)
         {
-            for (int i = 1; i < length - 1; i++)
+            for (int i = 1; i < length; i++)
             {
                 if (board[fromRow + i, fromCol + i] != null)
                 {
@@ -85,7 +96,7 @@ public class Bishop
         }
         else if (fromRow < toRow && fromCol > toCol)
         {
-            for (int i = 1; i < length - 1; i++)
+            for (int i = 1; i < length; i++)
             {
                 if (board[fromRow + i, fromCol - i] != null)
                 {

@@ -9,6 +9,7 @@ namespace Chess.Desktop;
 
 public static class DesktopUtilities
 {
+    public static Dictionary<(int, int), Button> positionButtonPairs = new();
     public static void PrintChessBoard(string[,] board, Grid ChessGrid, MainWindow mainWindow)
     {
 
@@ -19,7 +20,6 @@ public static class DesktopUtilities
             {
 
                 Button button = new();
-
                 button.Content = ButtonContent(i, j);
                 button.FontSize = 35;
                 button.Tag = (i, j);
@@ -55,6 +55,7 @@ public static class DesktopUtilities
 
 
                 ChessGrid.Children.Add(button);
+                positionButtonPairs.Add((i, j), button);
 
             }
         }
@@ -142,7 +143,7 @@ public static class DesktopUtilities
         {
             return false;
         }
-        bool isValidMove = Utilities.PieceToMove(board, fromRow, fromCol, toRow, toCol);
+        bool isValidMove = Utilities.IsPieceToMoveValid(board, fromRow, fromCol, toRow, toCol);
         if (isValidMove == false)
         {
 
@@ -164,7 +165,7 @@ public static class DesktopUtilities
     {
         if (Utilities.HasPieceAt(board, fromRow, fromCol))
         {
-       
+
             //Ensure piece present
             var notificationManager = new NotificationManager();
             notificationManager.Show(new NotificationContent
@@ -183,7 +184,7 @@ public static class DesktopUtilities
 
             if (turn == 'W')
             {
-               
+
                 var notificationManager = new NotificationManager();
                 notificationManager.Show(new NotificationContent
                 {

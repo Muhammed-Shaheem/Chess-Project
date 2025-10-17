@@ -25,6 +25,11 @@ public class Queen
                 return false;
             }
 
+            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
+            //{
+            //    return false;
+            //}
+
             return true;
 
 
@@ -43,6 +48,11 @@ public class Queen
             {
                 return false;
             }
+
+            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
+            //{
+            //    return false;
+            //}
 
             return true;
 

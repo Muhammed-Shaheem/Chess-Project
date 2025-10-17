@@ -16,6 +16,7 @@ public partial class MainWindow : Window
     public (int row, int col) from;
     private (int row, int col) to;
     private Button? secondButton;
+    Dictionary<Button, Brush> buttonBackgroundPairs = new();
 
     public MainWindow()
     {
@@ -23,7 +24,6 @@ public partial class MainWindow : Window
         Utilities.InitializePieces(board);
         DesktopUtilities.PrintChessBoard(board, ChessGrid, this);
         AddClickEventToPromoteBtn();
-
 
     }
 
@@ -96,7 +96,7 @@ public partial class MainWindow : Window
         if (firstButton == null)
         {
             OnFromBtnClick(button, row, col);
-            //HighlightPossibleMoves(button);
+            HighlightPossibleMoves();
         }
         else
         {
@@ -108,6 +108,22 @@ public partial class MainWindow : Window
 
 
     }
+
+    private void HighlightPossibleMoves()
+    {
+        var moves = Utilities.PossibleMoves(board, from.row, from.col);
+
+        foreach (var move in moves)
+        {
+            if (DesktopUtilities.positionButtonPairs.TryGetValue((move.Row, move.Col), out Button? btn))
+            {
+                buttonBackgroundPairs.Add(btn!, btn!.Background);
+                btn!.Background = Brushes.LightGray;
+            }
+
+        }
+    }
+
     private void OnFromBtnClick(Button fromButton, int row, int col)
     {
         if (fromButton.Content == null)
@@ -124,7 +140,6 @@ public partial class MainWindow : Window
         }
     }
 
-
     private void OnToBtnClick(Button toButton, int row, int col)
     {
         to = (row, col);
@@ -132,6 +147,13 @@ public partial class MainWindow : Window
 
         firstButton!.Background = (Brush?)new BrushConverter().ConvertFromString(DefaultColor!);
 
+        foreach (var item in buttonBackgroundPairs)
+        {
+            var btn = item.Key;
+            btn.Background = item.Value;
+            buttonBackgroundPairs.Remove(btn);
+        }
+        
         bool isvalidMove = DesktopUtilities.PlayGame(board, from.row, from.col, to.row, to.col, turn);
         if (isvalidMove == false)
         {

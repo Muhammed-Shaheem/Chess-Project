@@ -25,6 +25,11 @@ public static class Rook
                 return false;
             }
 
+            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
+            //{
+            //    return false;
+            //}
+
             return true;
         }
 
@@ -39,6 +44,11 @@ public static class Rook
             {
                 return false;
             }
+
+            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
+            //{
+            //    return false;
+            //}
 
             return true;
         }
@@ -85,7 +95,7 @@ public static class Rook
                     }
                 }
             }
-            else if (fromRow > toRow)
+            else if (fromCol > toCol)
             {
                 for (int i = 1; i < length - 1; i++)
                 {

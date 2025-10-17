@@ -102,7 +102,7 @@ public static class ConsoleUtilities
         {
         label:
             (int fromRow, int fromCol, int toRow, int toCol, char pieceMoved) = ConsoleUtilities.UserInputValidation(board, turn);
-            bool isValidMove = Utilities.PieceToMove(board, fromRow, fromCol, toRow, toCol);
+            bool isValidMove = Utilities.IsPieceToMoveValid(board, fromRow, fromCol, toRow, toCol);
             if (isValidMove == false)
             {
                 Console.WriteLine("Invalid Move.");
