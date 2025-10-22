@@ -143,6 +143,8 @@ public static class DesktopUtilities
         {
             return false;
         }
+
+
         bool isValidMove = Utilities.IsPieceToMoveValid(board, fromRow, fromCol, toRow, toCol);
         if (isValidMove == false)
         {
@@ -165,7 +167,6 @@ public static class DesktopUtilities
     {
         if (Utilities.HasPieceAt(board, fromRow, fromCol))
         {
-
             //Ensure piece present
             var notificationManager = new NotificationManager();
             notificationManager.Show(new NotificationContent

@@ -2,7 +2,7 @@
 
 public static class Knight
 {
-    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol, bool isKingSafeCheck = false)
     {
         if (board[toRow, toCol] != null && Utilities.IsSameColor(board[fromRow, fromCol], board[toRow, toCol]))
         {
@@ -16,25 +16,15 @@ public static class Knight
                 return false;
             }
 
-            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
-            //{
-            //    return false;
-            //}
-
             return true;
         }
 
         else if (board[fromRow, fromCol] == "WN")
         {
-            if ((  ((toRow == fromRow + 2) && (toCol == fromCol + 1 || toCol == fromCol - 1)) || ((toRow == fromRow - 2) && (toCol == fromCol + 1 || toCol == fromCol - 1)) || ((toRow == fromRow - 1) && (toCol == fromCol + 2 || toCol == fromCol - 2)) || ((toRow == fromRow + 1) && (toCol == fromCol + 2 || toCol == fromCol - 2))) == false)
+            if ((((toRow == fromRow + 2) && (toCol == fromCol + 1 || toCol == fromCol - 1)) || ((toRow == fromRow - 2) && (toCol == fromCol + 1 || toCol == fromCol - 1)) || ((toRow == fromRow - 1) && (toCol == fromCol + 2 || toCol == fromCol - 2)) || ((toRow == fromRow + 1) && (toCol == fromCol + 2 || toCol == fromCol - 2))) == false)
             {
                 return false;
             }
-
-            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
-            //{
-            //    return false;
-            //}
 
             return true;
         }

@@ -2,7 +2,7 @@
 
 public static class Pawn
 {
-    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol, bool isKingSafeCheck = false)
     {
         if (board[toRow, toCol] != null && Utilities.IsSameColor(board[fromRow, fromCol], board[toRow, toCol]))
         {
@@ -39,13 +39,10 @@ public static class Pawn
 
                 }
 
-                //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
-                //{
-                //    return false;
-                //}
             }
 
 
+           
             return true;
 
         }
@@ -80,15 +77,11 @@ public static class Pawn
 
                 }
 
-                //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
-                //{
-                //    return false;
-                //}
+
 
 
 
             }
-
 
             return true;
 
@@ -99,7 +92,7 @@ public static class Pawn
 
     }
 
-  
+
 
     public static bool IsMovePossible(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
     {
@@ -185,5 +178,5 @@ public static class Pawn
 
     }
 
-  
+
 }

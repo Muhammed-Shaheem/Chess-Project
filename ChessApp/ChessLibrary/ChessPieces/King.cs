@@ -3,12 +3,13 @@ namespace ChessLibrary.ChessPieces;
 
 public class King
 {
-    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol, bool isKingSafeCheck = false)
     {
         if (board[toRow, toCol] != null && Utilities.IsSameColor(board[fromRow, fromCol], board[toRow, toCol]))
         {
             return false;
         }
+
 
         if (board[fromRow, fromCol] == "BK")
         {
@@ -16,6 +17,7 @@ public class King
             {
                 return false;
             }
+
             return true;
         }
 
@@ -25,8 +27,12 @@ public class King
             {
                 return false;
             }
+
             return true;
+
         }
+
+        
 
         return true;
     }

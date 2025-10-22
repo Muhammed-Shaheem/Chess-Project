@@ -2,14 +2,13 @@
 
 public static class Rook
 {
-    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol, bool isKingSafeCheck = false)
     {
         //Prevent capturing own pieces
         if (board[toRow, toCol] != null && Utilities.IsSameColor(board[fromRow, fromCol], board[toRow, toCol]))
         {
             return false;
         }
-
 
 
         if (board[fromRow, fromCol] == "BR")
@@ -25,10 +24,6 @@ public static class Rook
                 return false;
             }
 
-            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
-            //{
-            //    return false;
-            //}
 
             return true;
         }
@@ -45,11 +40,6 @@ public static class Rook
                 return false;
             }
 
-            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
-            //{
-            //    return false;
-            //}
-
             return true;
         }
 
@@ -61,7 +51,7 @@ public static class Rook
         if (fromRow != toRow)
         {
             int length = Math.Abs(fromRow - toRow);
-            if (fromRow < toRow)
+            if (toRow > fromRow)
             {
                 for (int i = 1; i < length; i++)
                 {
@@ -71,7 +61,7 @@ public static class Rook
                     }
                 }
             }
-            else if (fromRow > toRow)
+            else if (toRow < fromRow)
             {
                 for (int i = 1; i < length; i++)
                 {
@@ -84,22 +74,22 @@ public static class Rook
         }
         else if (fromCol != toCol)
         {
-            int length = Math.Abs(fromRow - toRow);
-            if (fromCol < toCol)
+            int length = Math.Abs(fromCol - toCol);
+            if (toCol > fromCol)
             {
-                for (int i = 1; i < length - 1; i++)
+                for (int i = 1; i < length; i++)
                 {
-                    if (board[fromRow, toCol + i] != null)
+                    if (board[fromRow, fromCol + i] != null)
                     {
                         return false;
                     }
                 }
             }
-            else if (fromCol > toCol)
+            else if (toCol < fromCol)
             {
-                for (int i = 1; i < length - 1; i++)
+                for (int i = 1; i < length; i++)
                 {
-                    if (board[fromRow, toCol - i] != null)
+                    if (board[fromRow, fromCol - i] != null)
                     {
                         return false;
                     }

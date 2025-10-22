@@ -54,10 +54,18 @@ public static class Utilities
             {
                 if (IsPieceToMoveValid(board, fromRow, fromCol, i, j))
                 {
-                    ToPosition to = new();
-                    to.Row = i;
-                    to.Col = j;
-                    possibleMoves.Add(to);
+
+                    if (TryMove(board, fromRow, fromCol, i, j) == false)
+                    {
+                        if (board[i, j]?[1] != 'K')
+                        {
+                            ToPosition to = new();
+                            to.Row = i;
+                            to.Col = j;
+                            possibleMoves.Add(to);
+
+                        }
+                    }
                 }
             }
         }
@@ -65,61 +73,128 @@ public static class Utilities
         return possibleMoves;
     }
 
-    public static bool IsPieceToMoveValid(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    public static bool IsThereAnyPossibleMoves(string[,] board, char currentPlayerColor)
     {
-        char pieceMoved = board[fromRow, fromCol][1];
-        bool isValidMove = false;
-        switch (pieceMoved)
+        
+        for (int i = 0; i < 8; i++)
         {
-            case 'P':
-                isValidMove = Pawn.Move(board, fromRow, fromCol, toRow, toCol);
-                break;
-            case 'R':
-                isValidMove = Rook.Move(board, fromRow, fromCol, toRow, toCol);
-                break;
-            case 'N':
-                isValidMove = Knight.Move(board, fromRow, fromCol, toRow, toCol);
-                break;
-            case 'B':
-                isValidMove = Bishop.Move(board, fromRow, fromCol, toRow, toCol);
-                break;
-            case 'Q':
-                isValidMove = Queen.Move(board, fromRow, fromCol, toRow, toCol);
-                break;
-            case 'K':
-                isValidMove = King.Move(board, fromRow, fromCol, toRow, toCol);
-                break;
-
-            default:
-                break;
+            for (int j = 0; j < 8; j++)
+            {
+                if (currentPlayerColor == 'B')
+                {
+                    if (board[i, j]?[0] == 'W')
+                    {
+                        if (PossibleMoves(board, i, j).Count != 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (currentPlayerColor == 'W')
+                {
+                    if (board[i, j]?[0] == 'B')
+                    {
+                        if (PossibleMoves(board, i, j).Count != 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
         }
 
-        return isValidMove;
+        return false;
     }
-    
-    public static bool PieceToMove(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    private static string[,] DuplicateBoard(string[,] board)
     {
-        char pieceMoved = board[fromRow, fromCol][1];
+        string[,] duplicateBoard = new string[8, 8];
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                duplicateBoard[i, j] = board[i, j];
+            }
+        }
+
+        return duplicateBoard;
+    }
+
+    public static bool TryMove(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    {
+        var duplicateboard = DuplicateBoard(board);
+        if (board[fromRow, fromCol][0] == 'W')
+        {
+            Utilities.MovePiece(duplicateboard, fromRow, fromCol, toRow, toCol);
+            (int kingRow, int kingCol) = Utilities.FindIndexOfKing(duplicateboard, 'W');
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (board[i, j]?[0] == 'B')
+                    {
+                        if (Utilities.IsPieceToMoveValid(duplicateboard, i, j, kingRow, kingCol))
+                        {
+                            Utilities.MovePiece(duplicateboard, toRow, toCol, fromRow, fromCol);
+                            return true;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        else if (board[fromRow, fromCol][0] == 'B')
+        {
+
+            Utilities.MovePiece(duplicateboard, fromRow, fromCol, toRow, toCol);
+            (int kingRow, int kingCol) = Utilities.FindIndexOfKing(duplicateboard, 'B');
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (board[i, j]?[0] == 'W')
+                    {
+                        if (Utilities.IsPieceToMoveValid(duplicateboard, i, j, kingRow, kingCol))
+                        {
+                            Utilities.MovePiece(duplicateboard, toRow, toCol, fromRow, fromCol);
+                            return true;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        Utilities.MovePiece(duplicateboard, toRow, toCol, fromRow, fromCol);
+        return false;
+
+    }
+
+    public static bool IsPieceToMoveValid(string[,] board, int fromRow, int fromCol, int toRow, int toCol, bool isKingSafeCheck = false)
+    {
+        char? pieceMoved = board[fromRow, fromCol]?[1];
         bool isValidMove = false;
         switch (pieceMoved)
         {
             case 'P':
-                isValidMove = Pawn.IsMovePossible(board, fromRow, fromCol, toRow, toCol);
+                isValidMove = Pawn.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
                 break;
             case 'R':
-                isValidMove = Rook.Move(board, fromRow, fromCol, toRow, toCol);
+                isValidMove = Rook.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
                 break;
             case 'N':
-                isValidMove = Knight.Move(board, fromRow, fromCol, toRow, toCol);
+                isValidMove = Knight.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
                 break;
             case 'B':
-                isValidMove = Bishop.Move(board, fromRow, fromCol, toRow, toCol);
+                isValidMove = Bishop.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
                 break;
             case 'Q':
-                isValidMove = Queen.Move(board, fromRow, fromCol, toRow, toCol);
+                isValidMove = Queen.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
                 break;
             case 'K':
-                isValidMove = King.Move(board, fromRow, fromCol, toRow, toCol);
+                isValidMove = King.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
                 break;
 
             default:
@@ -142,23 +217,13 @@ public static class Utilities
     public static bool IsSameColor(string fromPiece, string toPiece)
     {
 
-            if (fromPiece?[0] == toPiece?[0])
+        if (fromPiece?[0] == toPiece?[0])
         {
             return true;
         }
 
         return false;
     }
-
-    public static bool IsTargetOpponentKing(string opponentPiece, char oppponentColor)
-    {
-        if (opponentPiece == $"{oppponentColor}K")
-        {
-            return true;
-        }
-        return false;
-    }
-
 
     public static (int i, int j) FindIndexOfKing(string[,] board, char color)
     {
@@ -175,54 +240,13 @@ public static class Utilities
         return (0, 0);
     }
 
-    public static bool IsKingSafe(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    public static bool IsKingCapture(string[,] board, int toRow, int toCol)
     {
-        if (board[fromRow, fromCol][0] == 'W')
+        if (board[toRow, toCol]?[1] == 'K')
         {
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol);
-            (int kingRow, int kingCol) = Utilities.FindIndexOfKing(board, 'W');
-
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if (board[i, j]?[0] == 'B')
-                    {
-                        if (Utilities.PieceToMove(board, i, j, kingRow, kingCol))
-                        {
-                            Utilities.MovePiece(board, toRow, toCol, fromRow, fromCol);
-                            return false;
-                        }
-
-                    }
-                }
-            }
+            return true;
         }
 
-        else if (board[fromRow, fromCol][0] == 'B')
-        {
-            Utilities.MovePiece(board, fromRow, fromCol, toRow, toCol);
-            (int kingRow, int kingCol) = Utilities.FindIndexOfKing(board, 'B');
-
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if (board[i, j]?[0] == 'W')
-                    {
-                        if (Utilities.PieceToMove(board, i, j, kingRow, kingCol))
-                        {
-                            Utilities.MovePiece(board, toRow, toCol, fromRow, fromCol);
-                            return false;
-                        }
-
-                    }
-                }
-            }
-        }
-
-        Utilities.MovePiece(board, toRow, toCol, fromRow, fromCol);
-        return true;
-
+        return false;
     }
 }

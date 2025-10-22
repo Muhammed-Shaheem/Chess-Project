@@ -10,21 +10,7 @@
         Title="Chess" Height="700" Width="700">
 
 
-
     <Grid>
-
-        <!--<Grid x:Name="PromotionGridWhite">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-        </Grid>-->
-
         <Grid x:Name="ChessGrid">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -46,14 +32,11 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <!--<Border Grid.Row="0" Grid.Column="0" Background="#302e2b"/>-->
-
         </Grid>
 
         <Grid x:Name="PromotionGrid"
               Background="#AA000000"
               Visibility="Collapsed">
-
             <Border Background="White" CornerRadius="10" Padding="10"
                     HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
@@ -64,22 +47,5 @@
                 </StackPanel>
             </Border>
         </Grid>
-
-        <!--<Grid x:Name="PromotionGridBlack">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-        </Grid>-->
-
-
     </Grid>
-
-
-
 </Window>

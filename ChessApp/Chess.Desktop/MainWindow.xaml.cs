@@ -1,5 +1,6 @@
 ﻿using ChessLibrary;
 using ChessLibrary.ChessPieces;
+using Notifications.Wpf;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -10,13 +11,14 @@ public partial class MainWindow : Window
 {
 
     public static string[,] board = new string[8, 8];
-    public Button? firstButton;
+    public Button? sourceButton;
     private char turn = 'W';
     private string? DefaultColor;
     public (int row, int col) from;
     private (int row, int col) to;
-    private Button? secondButton;
+    private Button? destinationButton;
     Dictionary<Button, Brush> buttonBackgroundPairs = new();
+    private bool isKingInCheck;
 
     public MainWindow()
     {
@@ -36,22 +38,22 @@ public partial class MainWindow : Window
         {
             if (button.Tag.ToString() == "Queen")
             {
-                secondButton!.Content = DesktopUtilities.ButtonContent(0, 3);
+                destinationButton!.Content = DesktopUtilities.ButtonContent(0, 3);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "BQ");
             }
             else if (button.Tag.ToString() == "Bishop")
             {
-                secondButton!.Content = DesktopUtilities.ButtonContent(0, 2);
+                destinationButton!.Content = DesktopUtilities.ButtonContent(0, 2);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "BB");
             }
             else if (button.Tag.ToString() == "Knight")
             {
-                secondButton!.Content = DesktopUtilities.ButtonContent(0, 1);
+                destinationButton!.Content = DesktopUtilities.ButtonContent(0, 1);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "BN");
             }
             else if (button.Tag.ToString() == "Rook")
             {
-                secondButton!.Content = DesktopUtilities.ButtonContent(0, 0);
+                destinationButton!.Content = DesktopUtilities.ButtonContent(0, 0);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "BR");
             }
 
@@ -62,29 +64,25 @@ public partial class MainWindow : Window
         {
             if (button.Tag.ToString() == "Queen")
             {
-                secondButton!.Content = DesktopUtilities.ButtonContent(7, 3);
+                destinationButton!.Content = DesktopUtilities.ButtonContent(7, 3);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "WQ");
             }
             else if (button.Tag.ToString() == "Bishop")
             {
-                secondButton!.Content = DesktopUtilities.ButtonContent(7, 2);
+                destinationButton!.Content = DesktopUtilities.ButtonContent(7, 2);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "WB");
             }
             else if (button.Tag.ToString() == "Knight")
             {
-                secondButton!.Content = DesktopUtilities.ButtonContent(7, 1);
+                destinationButton!.Content = DesktopUtilities.ButtonContent(7, 1);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "WN");
             }
             else if (button.Tag.ToString() == "Rook")
             {
-                secondButton!.Content = DesktopUtilities.ButtonContent(7, 0);
+                destinationButton!.Content = DesktopUtilities.ButtonContent(7, 0);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "WR");
             }
         }
-
-        firstButton!.Content = null;
-        firstButton = null;
-        secondButton = null;
 
     }
 
@@ -93,10 +91,12 @@ public partial class MainWindow : Window
         Button button = (Button)sender;
         (int row, int col) = ((int, int))button.Tag;
 
-        if (firstButton == null)
+        if (sourceButton == null)
         {
-            OnFromBtnClick(button, row, col);
-            HighlightPossibleMoves();
+            if (OnFromBtnClick(button, row, col) == true)
+            {
+                HighlightPossibleMoves();
+            }
         }
         else
         {
@@ -117,35 +117,149 @@ public partial class MainWindow : Window
         {
             if (DesktopUtilities.positionButtonPairs.TryGetValue((move.Row, move.Col), out Button? btn))
             {
-                buttonBackgroundPairs.Add(btn!, btn!.Background);
-                btn!.Background = Brushes.LightGray;
+                if (buttonBackgroundPairs.ContainsKey(btn) == false)
+                {
+                    buttonBackgroundPairs.Add(btn!, btn!.Background);
+                    btn!.Background = Brushes.LightGray;
+                }
             }
 
         }
     }
 
-    private void OnFromBtnClick(Button fromButton, int row, int col)
+    private bool OnFromBtnClick(Button fromButton, int row, int col)
     {
         if (fromButton.Content == null)
         {
-            firstButton = null;
-            return;
+            sourceButton = null;
+            return false;
         }
         else
         {
             DefaultColor = fromButton.Background.ToString();
             fromButton.Background = new SolidColorBrush(Color.FromRgb(246, 246, 105));
-            firstButton = fromButton;
+            sourceButton = fromButton;
             from = (row, col);
         }
+
+        return true;
     }
 
     private void OnToBtnClick(Button toButton, int row, int col)
     {
         to = (row, col);
-        secondButton = toButton;
+        destinationButton = toButton;
+        if (IsSameColorPieceCaptured())
+        {
+            ResetButtonColorToDefault();
+            sourceButton = null;
+            destinationButton = null;
+            return;
+        }
 
-        firstButton!.Background = (Brush?)new BrushConverter().ConvertFromString(DefaultColor!);
+       
+
+        ResetButtonColorToDefault();
+
+        bool isvalidMove = DesktopUtilities.PlayGame(board, from.row, from.col, to.row, to.col, turn);
+        if (isvalidMove == false)
+        {
+            sourceButton = null;
+            destinationButton = null;
+            return;
+        }
+
+        else
+        {
+
+            if (Utilities.TryMove(board, from.row, from.col, to.row, to.col))
+            {
+                var notificationManager = new NotificationManager();
+
+                if (isKingInCheck)
+                {
+
+                    notificationManager.Show(new NotificationContent
+                    {
+                        Title = "Invalid Move",
+                        Message = "King is in check!",
+                        Type = NotificationType.Error
+                    });
+                    sourceButton = null;
+                    destinationButton = null;
+                    return;
+
+                }
+
+                else
+                {
+                    notificationManager.Show(new NotificationContent
+                    {
+                        Title = "Invalid Move",
+                        Message = "That move leads to king in check!",
+                        Type = NotificationType.Error
+                    });
+                    sourceButton = null;
+                    destinationButton = null;
+                    return;
+                }
+            }
+
+            MovePieceInBoard();
+
+            isKingInCheck = IsOpponentkingInCheck(to.row, to.col);
+            if (isKingInCheck)
+            {
+                DisplayKingUnderAttackInformation();
+            }
+            if (isKingInCheck && Utilities.IsThereAnyPossibleMoves(board, board[to.row, to.col][0]) == false)
+            {
+                ShowWinner("Shaheem");
+
+            }
+            else if (!isKingInCheck && Utilities.IsThereAnyPossibleMoves(board, board[to.row, to.col][0]) == false)
+            {
+                ShowStalemate();
+            }
+           
+            turn = turn == 'B' ? 'W' : 'B';
+
+
+            sourceButton!.Content = null;
+            sourceButton = null;
+            destinationButton = null;
+        }
+    }
+
+    private void DisplayKingUnderAttackInformation()
+    {
+
+        if (board[to.row, to.col][0] == 'W')
+        {
+            var notificationManager = new NotificationManager();
+            notificationManager.Show(new NotificationContent
+            {
+                Title = "Check",
+                Message = "Black King under attack.",
+                Type = NotificationType.Information
+            });
+        }
+        else
+        {
+            var notificationManager = new NotificationManager();
+            notificationManager.Show(new NotificationContent
+            {
+                Title = "Check",
+                Message = "White King under attack.",
+                Type = NotificationType.Information
+            });
+        }
+
+    }
+
+    private void ResetButtonColorToDefault()
+    {
+        sourceButton!.Background = (Brush?)new BrushConverter().ConvertFromString(DefaultColor!);
 
         foreach (var item in buttonBackgroundPairs)
         {
@@ -153,36 +267,33 @@ public partial class MainWindow : Window
             btn.Background = item.Value;
             buttonBackgroundPairs.Remove(btn);
         }
-        
-        bool isvalidMove = DesktopUtilities.PlayGame(board, from.row, from.col, to.row, to.col, turn);
-        if (isvalidMove == false)
+
+
+    }
+
+    private bool IsSameColorPieceCaptured()
+    {
+        if (Utilities.IsSameColor(board[from.row, from.col], board[to.row, to.col]))
         {
-            firstButton = null;
-            return;
+            return true;
         }
-
-        else
-        {
-
-            MovePieceInBoard();
-            turn = turn == 'B' ? 'W' : 'B';
-
-        }
+        return false;
     }
 
     private void MovePieceInBoard()
     {
+
         if (IsPromotionMove())
         {
+
             return;
         }
         else
         {
-            secondButton!.Content = firstButton!.Content;
+
+            destinationButton!.Content = sourceButton!.Content;
             Utilities.MovePiece(board, from.row, from.col, to.row, to.col);
-            firstButton.Content = null;
-            firstButton = null;
-            secondButton = null;
+
         }
     }
 
@@ -223,5 +334,69 @@ public partial class MainWindow : Window
         knightPromoteBtn.Click += PromoteBtn_Click;
         RookPromoteBtn.Click += PromoteBtn_Click;
     }
+
+    private bool IsOpponentkingInCheck(int fromRow, int fromCol)
+    {
+
+        if (board[fromRow, fromCol][0] == 'W')
+        {
+
+            (int kingRow, int kingCol) = Utilities.FindIndexOfKing(board, 'B');
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (board[i, j]?[0] == 'W')
+                    {
+                        if (Utilities.IsPieceToMoveValid(board, i, j, kingRow, kingCol))
+                        {
+                            return true;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        else if (board[fromRow, fromCol][0] == 'B')
+        {
+            (int kingRow, int kingCol) = Utilities.FindIndexOfKing(board, 'W');
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (board[i, j]?[0] == 'B')
+                    {
+                        if (Utilities.IsPieceToMoveValid(board, i, j, kingRow, kingCol))
+                        {
+                            return true;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+    private void ShowWinner(string winnerName)
+    {
+        // Display a message box announcing the winner
+        MessageBox.Show($"{winnerName} won the game!", "Game Over", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void ShowStalemate()
+    {
+        // Display a message box announcing stalemate
+        MessageBox.Show("The game ended in a stalemate!", "Game Over", MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+
+
+
 }
 

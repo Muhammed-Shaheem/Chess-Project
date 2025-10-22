@@ -3,7 +3,7 @@ namespace ChessLibrary.ChessPieces;
 
 public class Bishop
 {
-    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol, bool isKingSafeCheck = false)
     {
 
         if (board[toRow, toCol] != null && Utilities.IsSameColor(board[fromRow, fromCol], board[toRow, toCol]))
@@ -23,12 +23,6 @@ public class Bishop
                 return false;
             }
 
-            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
-            //{
-            //    return false;
-            //}
-
-
             return true;
 
 
@@ -47,11 +41,6 @@ public class Bishop
                 return false;
             }
 
-            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
-            //{
-            //    return false;
-            //}
-
             return true;
 
         }
@@ -63,28 +52,7 @@ public class Bishop
     {
 
         int length = Math.Abs(fromRow - toRow);
-        if (fromRow > toRow && fromCol > toCol)
-        {
-            for (int i = 1; i < length; i++)
-            {
-                if (board[fromRow - i, fromCol - i] != null)
-                {
-                    return false;
-                }
-            }
-        }
-        else if (fromRow > toRow && fromCol < toCol)
-        {
-            for (int i = 1; i < length; i++)
-            {
-                if (board[fromRow - i, fromCol + i] != null)
-                {
-                    return false;
-                }
-            }
-        }
-
-        else if (fromRow < toRow && fromCol < toCol)
+        if (toRow > fromRow && toCol > fromCol)
         {
             for (int i = 1; i < length; i++)
             {
@@ -94,11 +62,32 @@ public class Bishop
                 }
             }
         }
-        else if (fromRow < toRow && fromCol > toCol)
+        else if (toRow > fromRow && toCol < fromCol)
         {
             for (int i = 1; i < length; i++)
             {
                 if (board[fromRow + i, fromCol - i] != null)
+                {
+                    return false;
+                }
+            }
+        }
+
+        else if (toRow < fromRow && toCol < fromCol)
+        {
+            for (int i = 1; i < length; i++)
+            {
+                if (board[fromRow - i, fromCol - i] != null)
+                {
+                    return false;
+                }
+            }
+        }
+        else if (toRow < fromRow && toCol > fromCol)
+        {
+            for (int i = 1; i < length; i++)
+            {
+                if (board[fromRow - i, fromCol + i] != null)
                 {
                     return false;
                 }

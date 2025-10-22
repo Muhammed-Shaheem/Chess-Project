@@ -3,13 +3,11 @@ namespace ChessLibrary.ChessPieces;
 
 public class Queen
 {
-    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
+    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol, bool isKingSafeCheck = false)
     {
         if (board[toRow, toCol] != null && Utilities.IsSameColor(board[fromRow, fromCol], board[toRow, toCol]))
         {
             return false;
-
-
         }
 
         if (board[fromRow, fromCol] == "BQ")
@@ -24,12 +22,6 @@ public class Queen
             {
                 return false;
             }
-
-            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
-            //{
-            //    return false;
-            //}
-
             return true;
 
 
@@ -48,11 +40,6 @@ public class Queen
             {
                 return false;
             }
-
-            //if (Utilities.IsKingSafe(board, fromRow, fromCol, toRow, toCol) == false)
-            //{
-            //    return false;
-            //}
 
             return true;
 
@@ -78,7 +65,7 @@ public class Queen
         }
 
 
-        
+
     }
 
 }
