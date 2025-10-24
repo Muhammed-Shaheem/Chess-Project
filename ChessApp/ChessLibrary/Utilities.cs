@@ -240,13 +240,51 @@ public static class Utilities
         return (0, 0);
     }
 
-    public static bool IsKingCapture(string[,] board, int toRow, int toCol)
+    public static bool IsOpponentkingInCheck(string[,]board,int fromRow, int fromCol)
     {
-        if (board[toRow, toCol]?[1] == 'K')
+
+        if (board[fromRow, fromCol][0] == 'W')
         {
-            return true;
+
+            (int kingRow, int kingCol) = Utilities.FindIndexOfKing(board, 'B');
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (board[i, j]?[0] == 'W')
+                    {
+                        if (Utilities.IsPieceToMoveValid(board, i, j, kingRow, kingCol))
+                        {
+                            return true;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        else if (board[fromRow, fromCol][0] == 'B')
+        {
+            (int kingRow, int kingCol) = Utilities.FindIndexOfKing(board, 'W');
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (board[i, j]?[0] == 'B')
+                    {
+                        if (Utilities.IsPieceToMoveValid(board, i, j, kingRow, kingCol))
+                        {
+                            return true;
+                        }
+
+                    }
+                }
+            }
         }
 
         return false;
+
     }
 }
