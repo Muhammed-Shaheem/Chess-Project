@@ -3,7 +3,7 @@ namespace ChessLibrary.ChessPieces;
 
 public class Queen
 {
-    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol, bool isKingSafeCheck = false)
+    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
     {
         if (board[toRow, toCol] != null && Utilities.IsSameColor(board[fromRow, fromCol], board[toRow, toCol]))
         {

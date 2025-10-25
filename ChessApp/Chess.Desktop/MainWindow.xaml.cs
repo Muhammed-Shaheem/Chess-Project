@@ -32,7 +32,6 @@ public partial class MainWindow : Window
 
     }
 
-
     public void Btn_Click(object sender, RoutedEventArgs e)
     {
         Button button = (Button)sender;
@@ -65,13 +64,18 @@ public partial class MainWindow : Window
         }
         else
         {
-            DefaultColor = fromButton.Background.ToString();
-            fromButton.Background = new SolidColorBrush(Color.FromRgb(246, 246, 105));
+            HighlightFirstSelectedposition(fromButton);
             sourceButton = fromButton;
             from = (row, col);
         }
 
         return true;
+    }
+
+    private void HighlightFirstSelectedposition(Button fromButton)
+    {
+        DefaultColor = fromButton.Background.ToString();
+        fromButton.Background = new SolidColorBrush(Color.FromRgb(246, 246, 105));
     }
 
     private void OnToBtnClick(Button toButton, int row, int col)
@@ -116,8 +120,7 @@ public partial class MainWindow : Window
             turn = turn == 'B' ? 'W' : 'B';
 
 
-            sourceButton!.Content = null;
-            MakeSourceAndDestinationButtonNull();
+
         }
     }
 
@@ -125,7 +128,7 @@ public partial class MainWindow : Window
     {
         if (isKingInCheck && Utilities.IsThereAnyPossibleMoves(board, board[to.row, to.col][0]) == false)
         {
-            ShowWinner("Shaheem");
+            ShowWinner(board[to.row, to.col][0]);
 
         }
         else if (!isKingInCheck && Utilities.IsThereAnyPossibleMoves(board, board[to.row, to.col][0]) == false)
@@ -225,7 +228,8 @@ public partial class MainWindow : Window
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "WR");
             }
         }
-
+        sourceButton!.Content = null;
+        MakeSourceAndDestinationButtonNull();
     }
 
     private void HighlightPossibleMoves()
@@ -239,7 +243,7 @@ public partial class MainWindow : Window
                 if (buttonBackgroundPairs.ContainsKey(btn) == false)
                 {
                     buttonBackgroundPairs.Add(btn!, btn!.Background);
-                    btn!.Background = Brushes.LightGray;
+                    btn.Background = new SolidColorBrush(Color.FromRgb(192, 192, 192));
                 }
             }
 
@@ -298,7 +302,8 @@ public partial class MainWindow : Window
 
             destinationButton!.Content = sourceButton!.Content;
             Utilities.MovePiece(board, from.row, from.col, to.row, to.col);
-
+            sourceButton!.Content = null;
+            MakeSourceAndDestinationButtonNull();
         }
     }
 
@@ -340,10 +345,11 @@ public partial class MainWindow : Window
         RookPromoteBtn.Click += PromoteBtn_Click;
     }
 
-    private void ShowWinner(string winnerName)
+    private void ShowWinner(char color)
     {
+        string winningPiece = color == 'W' ? "White" : "Black";
         // Display a message box announcing the winner
-        MessageBox.Show($"{winnerName} won the game!", "Game Over", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show($"{winningPiece} won the game!", "Game Over", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void ShowStalemate()
@@ -355,7 +361,8 @@ public partial class MainWindow : Window
     public void PrintChessBoard()
     {
 
-
+        var green = new SolidColorBrush(Color.FromRgb(118, 150, 86));
+        var yellow = new SolidColorBrush(Color.FromRgb(235, 236, 208));
         for (int i = 0; i < 8; i++)
         {
             for (int j = 0; j < 8; j++)
@@ -371,23 +378,23 @@ public partial class MainWindow : Window
 
                     if (j % 2 == 0)
                     {
-                        button.Background = (Brush?)new BrushConverter().ConvertFromString("#ebecd0");
+                        button.Background = yellow;
 
                     }
                     else
                     {
-                        button.Background = (Brush?)new BrushConverter().ConvertFromString("#769656");
+                        button.Background = green;
                     }
                 }
                 else
                 {
                     if (j % 2 == 0)
                     {
-                        button.Background = (Brush?)new BrushConverter().ConvertFromString("#769656");
+                        button.Background = green;
                     }
                     else
                     {
-                        button.Background = (Brush?)new BrushConverter().ConvertFromString("#ebecd0");
+                        button.Background = yellow;
 
                     }
                 }
@@ -403,8 +410,6 @@ public partial class MainWindow : Window
         }
 
     }
-
-
 
     public static Image? ButtonContent(int row, int col)
     {

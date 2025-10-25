@@ -172,29 +172,29 @@ public static class Utilities
 
     }
 
-    public static bool IsPieceToMoveValid(string[,] board, int fromRow, int fromCol, int toRow, int toCol, bool isKingSafeCheck = false)
+    public static bool IsPieceToMoveValid(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
     {
         char? pieceMoved = board[fromRow, fromCol]?[1];
         bool isValidMove = false;
         switch (pieceMoved)
         {
             case 'P':
-                isValidMove = Pawn.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
+                isValidMove = Pawn.Move(board, fromRow, fromCol, toRow, toCol);
                 break;
             case 'R':
-                isValidMove = Rook.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
+                isValidMove = Rook.Move(board, fromRow, fromCol, toRow, toCol);
                 break;
             case 'N':
-                isValidMove = Knight.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
+                isValidMove = Knight.Move(board, fromRow, fromCol, toRow, toCol);
                 break;
             case 'B':
-                isValidMove = Bishop.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
+                isValidMove = Bishop.Move(board, fromRow, fromCol, toRow, toCol);
                 break;
             case 'Q':
-                isValidMove = Queen.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
+                isValidMove = Queen.Move(board, fromRow, fromCol, toRow, toCol);
                 break;
             case 'K':
-                isValidMove = King.Move(board, fromRow, fromCol, toRow, toCol, isKingSafeCheck);
+                isValidMove = King.Move(board, fromRow, fromCol, toRow, toCol);
                 break;
 
             default:

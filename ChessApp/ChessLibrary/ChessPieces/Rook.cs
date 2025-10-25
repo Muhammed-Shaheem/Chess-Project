@@ -2,7 +2,7 @@
 
 public static class Rook
 {
-    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol, bool isKingSafeCheck = false)
+    public static bool Move(string[,] board, int fromRow, int fromCol, int toRow, int toCol)
     {
         //Prevent capturing own pieces
         if (board[toRow, toCol] != null && Utilities.IsSameColor(board[fromRow, fromCol], board[toRow, toCol]))
