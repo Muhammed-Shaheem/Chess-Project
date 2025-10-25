@@ -243,7 +243,7 @@ public static class Utilities
     public static bool IsOpponentkingInCheck(string[,]board,int fromRow, int fromCol)
     {
 
-        if (board[fromRow, fromCol][0] == 'W')
+        if (board[fromRow, fromCol]?[0] == 'W')
         {
 
             (int kingRow, int kingCol) = Utilities.FindIndexOfKing(board, 'B');
@@ -264,7 +264,7 @@ public static class Utilities
             }
         }
 
-        else if (board[fromRow, fromCol][0] == 'B')
+        else if (board[fromRow, fromCol]?[0] == 'B')
         {
             (int kingRow, int kingCol) = Utilities.FindIndexOfKing(board, 'W');
 

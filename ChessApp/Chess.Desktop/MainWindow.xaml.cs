@@ -87,7 +87,7 @@ public partial class MainWindow : Window
 
         ResetButtonColorsToDefault();
 
-        bool isvalidMove = DesktopUtilities.PlayGame(board, from.row, from.col, to.row, to.col, turn);
+        bool isvalidMove = PlayGame(board, from.row, from.col, to.row, to.col, turn);
         if (isvalidMove == false)
         {
             MakeSourceAndDestinationButtonNull();
@@ -180,22 +180,22 @@ public partial class MainWindow : Window
         {
             if (button.Tag.ToString() == "Queen")
             {
-                destinationButton!.Content = DesktopUtilities.ButtonContent(0, 3);
+                destinationButton!.Content = ButtonContent(0, 3);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "BQ");
             }
             else if (button.Tag.ToString() == "Bishop")
             {
-                destinationButton!.Content = DesktopUtilities.ButtonContent(0, 2);
+                destinationButton!.Content = ButtonContent(0, 2);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "BB");
             }
             else if (button.Tag.ToString() == "Knight")
             {
-                destinationButton!.Content = DesktopUtilities.ButtonContent(0, 1);
+                destinationButton!.Content = ButtonContent(0, 1);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "BN");
             }
             else if (button.Tag.ToString() == "Rook")
             {
-                destinationButton!.Content = DesktopUtilities.ButtonContent(0, 0);
+                destinationButton!.Content = ButtonContent(0, 0);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "BR");
             }
 
@@ -206,22 +206,22 @@ public partial class MainWindow : Window
         {
             if (button.Tag.ToString() == "Queen")
             {
-                destinationButton!.Content = DesktopUtilities.ButtonContent(7, 3);
+                destinationButton!.Content = ButtonContent(7, 3);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "WQ");
             }
             else if (button.Tag.ToString() == "Bishop")
             {
-                destinationButton!.Content = DesktopUtilities.ButtonContent(7, 2);
+                destinationButton!.Content = ButtonContent(7, 2);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "WB");
             }
             else if (button.Tag.ToString() == "Knight")
             {
-                destinationButton!.Content = DesktopUtilities.ButtonContent(7, 1);
+                destinationButton!.Content = ButtonContent(7, 1);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "WN");
             }
             else if (button.Tag.ToString() == "Rook")
             {
-                destinationButton!.Content = DesktopUtilities.ButtonContent(7, 0);
+                destinationButton!.Content = ButtonContent(7, 0);
                 Utilities.MovePiece(board, from.row, from.col, to.row, to.col, "WR");
             }
         }
@@ -234,7 +234,7 @@ public partial class MainWindow : Window
 
         foreach (var move in moves)
         {
-            if (DesktopUtilities.positionButtonPairs.TryGetValue((move.Row, move.Col), out Button? btn))
+            if (positionButtonPairs.TryGetValue((move.Row, move.Col), out Button? btn))
             {
                 if (buttonBackgroundPairs.ContainsKey(btn) == false)
                 {
@@ -306,10 +306,10 @@ public partial class MainWindow : Window
     {
         if (board[from.row, from.col] == "BP" && (to.row == 7))
         {
-            QueenPromoteBtn.Content = DesktopUtilities.ButtonContent(0, 3);
-            BishopPromoteBtn.Content = DesktopUtilities.ButtonContent(0, 2);
-            knightPromoteBtn.Content = DesktopUtilities.ButtonContent(0, 1);
-            RookPromoteBtn.Content = DesktopUtilities.ButtonContent(0, 0);
+            QueenPromoteBtn.Content = ButtonContent(0, 3);
+            BishopPromoteBtn.Content = ButtonContent(0, 2);
+            knightPromoteBtn.Content = ButtonContent(0, 1);
+            RookPromoteBtn.Content = ButtonContent(0, 0);
 
             PromotionGrid.Visibility = Visibility.Visible;
             return true;
@@ -318,10 +318,10 @@ public partial class MainWindow : Window
         else if (board[from.row, from.col] == "WP" && (to.row == 0))
         {
 
-            QueenPromoteBtn.Content = DesktopUtilities.ButtonContent(7, 3);
-            BishopPromoteBtn.Content = DesktopUtilities.ButtonContent(7, 2);
-            knightPromoteBtn.Content = DesktopUtilities.ButtonContent(7, 1);
-            RookPromoteBtn.Content = DesktopUtilities.ButtonContent(7, 0);
+            QueenPromoteBtn.Content = ButtonContent(7, 3);
+            BishopPromoteBtn.Content = ButtonContent(7, 2);
+            knightPromoteBtn.Content = ButtonContent(7, 1);
+            RookPromoteBtn.Content = ButtonContent(7, 0);
 
 
             PromotionGrid.Visibility = Visibility.Visible;
